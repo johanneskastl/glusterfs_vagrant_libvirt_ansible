@@ -20,3 +20,24 @@
       when:
         - 'item not in gluster_peer_status.stdout'
         - "hostvars[item]['ansible_fqdn'] != hostvars[inventory_hostname]['ansible_fqdn']"
+
+- name: 'Execute peer probe on other glusterfs_servers'
+  hosts: 'glusterfs_servers:!glusterfs_servers[0]'
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 'Get gluster peer status'
+      ansible.builtin.command:
+        cmd: '/usr/sbin/gluster peer status'
+      check_mode: false
+      changed_when: false
+      register: gluster_peer_status
+
+    - name: 'Execute gluster peer probe first glusterfs_server'
+      ansible.builtin.command:
+        cmd: "gluster peer probe {{ glusterfs_servers[0] }}"
+      when:
+        - "groups['glusterfs_servers'][0] not in gluster_peer_status.stdout"
+          #- "'glusterfs-server01' not in gluster_peer_status.stdout"
