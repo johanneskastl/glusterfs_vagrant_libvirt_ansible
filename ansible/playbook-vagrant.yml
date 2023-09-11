@@ -14,3 +14,6 @@
 
 - name: 'Run playbook-all_nodes-minimal_bashrc.yml'
   ansible.builtin.import_playbook: playbook-all_nodes-minimal_bashrc.yml
+
+- name: 'Run playbook-glusterfs_servers-format_vdb.yml'
+  ansible.builtin.import_playbook: playbook-glusterfs_servers-format_vdb.yml
