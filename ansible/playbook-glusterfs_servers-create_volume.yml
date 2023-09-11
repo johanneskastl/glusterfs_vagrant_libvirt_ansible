@@ -1,0 +1,28 @@
+---
+- name: 'Create volume'
+  hosts: 'glusterfs_servers[0]'
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 'Get gluster volume list'
+      ansible.builtin.command:
+        cmd: '/usr/sbin/gluster volume list'
+      check_mode: false
+      changed_when: false
+      register: gluster_volume_list
+
+    - name: 'Create gluster volume'
+      ansible.builtin.command:
+        cmd: "/usr/sbin/gluster volume create vagrant_libvirt_ansible replica 3 {{ groups['glusterfs_servers'] | join(':/gluster/bricks ') }}:/gluster/bricks"
+      notify:
+        - 'Start gluster volume'
+      when:
+        - '"vagrant_libvirt_ansible" not in gluster_volume_list.stdout'
+
+  handlers:
+
+    - name: 'Start gluster volume'
+      ansible.builtin.command:
+        cmd: 'gluster volume start vagrant_libvirt_ansible'
