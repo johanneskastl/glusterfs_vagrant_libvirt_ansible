@@ -1,0 +1,22 @@
+---
+- name: 'Execute peer probe on first glusterfs server'
+  hosts: 'glusterfs_servers[0]'
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 'Get gluster peer status'
+      ansible.builtin.command:
+        cmd: '/usr/sbin/gluster peer status'
+      check_mode: false
+      changed_when: false
+      register: gluster_peer_status
+
+    - name: 'Execute gluster peer probe'
+      ansible.builtin.command:
+        cmd: "gluster peer probe {{ item }}"
+      loop: "{{ groups['glusterfs_servers'] }}"
+      when:
+        - 'item not in gluster_peer_status.stdout'
+        - "hostvars[item]['ansible_fqdn'] != hostvars[inventory_hostname]['ansible_fqdn']"
