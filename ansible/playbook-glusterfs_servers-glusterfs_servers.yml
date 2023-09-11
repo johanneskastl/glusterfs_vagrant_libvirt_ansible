@@ -1,0 +1,9 @@
+---
+- name: 'Configure the glusterfs servers'
+  hosts: 'glusterfs_servers'
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: 'johanneskastl.glusterfs_servers'
+      group_name: 'glusterfs_servers'
