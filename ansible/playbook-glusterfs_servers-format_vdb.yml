@@ -1,0 +1,42 @@
+---
+- name: 'Format vdb'
+  hosts: 'glusterfs_servers'
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 'Install xfsprogs'
+      community.general.zypper:
+        name: 'xfsprogs'
+        state: present
+
+    - name: 'Partition vdb'
+      community.general.parted:
+        device: /dev/vdb
+        number: 1
+        state: present
+          # fs_type: '8e'
+          #flags: [ lvm ]
+        part_start: '1GB'
+        part_end: '10GB'
+
+    - name: 'Format vdb using xfs'
+      community.general.filesystem:
+        fstype: 'xfs'
+        dev: '/dev/vdb1'
+
+    - name: 'Mount /dev/vdb to /gluster/'
+      ansible.builtin.mount:
+        src: '/dev/vdb1'
+        path: '/gluster/'
+        fstype: 'xfs'
+        state: 'mounted'
+
+    - name: 'Create directory /gluster/brick'
+      ansible.builtin.file:
+        path: '/gluster/brick'
+        state: 'directory'
+        owner: 'root'
+        group: 'root'
+        mode: '0755'
