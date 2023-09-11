@@ -65,19 +65,24 @@ Vagrant.configure("2") do |config|
       # set the hostname
       node.vm.hostname = "glusterfs-server0#{i}"
 
-      #################################################
-      # only target one node to not run ansible twice
-      # but do not limit this to this node (set ansible.limit to all)
-      node.vm.provision "ansible" do |ansible|
-        ansible.compatibility_mode = "2.0"
-        ansible.limit = "all"
-        ansible.groups = {
-          "glusterfs_clients"  => [ "glusterfs-client01" ],
-          "glusterfs_servers"  => [ "glusterfs-server01", "glusterfs-server02", "glusterfs-server03" ],
-        }
-        ansible.playbook = "ansible/playbook-vagrant.yml"
+      # if this is the last machine
+      if i == S
 
-      end # node.vm.provision
+        #################################################
+        # only target one node to not run ansible twice
+        # but do not limit this to this node (set ansible.limit to all)
+        node.vm.provision "ansible" do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.limit = "all"
+          ansible.groups = {
+            "glusterfs_clients"  => [ "glusterfs-client01" ],
+            "glusterfs_servers"  => [ "glusterfs-server01", "glusterfs-server02", "glusterfs-server03" ],
+          }
+          ansible.playbook = "ansible/playbook-vagrant.yml"
+
+        end # node.vm.provision
+
+      end # if-condition last machine
 
     end # config.vm.define servers
 
