@@ -34,3 +34,6 @@
 [submodule "ansible/roles/johanneskastl.add_all_nodes_to_etc_hosts"]
 	path = ansible/roles/johanneskastl.add_all_nodes_to_etc_hosts
 	url = https://github.com/johanneskastl/ansible-role-add_all_nodes_to_etc_hosts
+[submodule "ansible/roles/johanneskastl.disable_ipv6"]
+	path = ansible/roles/johanneskastl.disable_ipv6
+	url = https://github.com/johanneskastl/ansible-role-disable_ipv6
