@@ -7,3 +7,4 @@
   roles:
     - role: 'johanneskastl.glusterfs_servers'
       group_name: 'glusterfs_servers'
+      force_ipv4_as_ipv6_not_available: true
