@@ -17,3 +17,6 @@
 
 - name: 'Run playbook-glusterfs_servers-format_vdb.yml'
   ansible.builtin.import_playbook: playbook-glusterfs_servers-format_vdb.yml
+
+- name: 'Run playbook-glusterfs_servers-glusterfs_servers.yml'
+  ansible.builtin.import_playbook: playbook-glusterfs_servers-glusterfs_servers.yml
