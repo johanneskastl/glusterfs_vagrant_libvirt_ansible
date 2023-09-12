@@ -26,3 +26,6 @@
 
 - name: 'Run playbook-glusterfs_servers-create_volume.yml'
   ansible.builtin.import_playbook: playbook-glusterfs_servers-create_volume.yml
+
+- name: 'Run playbook-glusterfs_clients-glusterfs_clients.yml'
+  ansible.builtin.import_playbook: playbook-glusterfs_clients-glusterfs_clients.yml
