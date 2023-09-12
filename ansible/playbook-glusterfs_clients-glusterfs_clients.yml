@@ -1,0 +1,12 @@
+---
+- name: 'Configure the glusterfs mount on the clients'
+  hosts: 'glusterfs_clients'
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: 'johanneskastl.glusterfs_clients'
+      force_ipv4_as_ipv6_not_available: true
+      glusterfs_volume_name: 'vagrant_libvirt_ansible'
+      glusterfs_server_name: "{{ hostvars[groups['glusterfs_servers'][0]]['inventory_hostname'] }}"
+      path_to_mount: '/opt/glusterfs/'
