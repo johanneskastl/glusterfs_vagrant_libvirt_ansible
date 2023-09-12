@@ -10,3 +10,4 @@
       glusterfs_volume_name: 'vagrant_libvirt_ansible'
       glusterfs_server_name: "{{ hostvars[groups['glusterfs_servers'][0]]['inventory_hostname'] }}"
       path_to_mount: '/opt/glusterfs/'
+      mount_options: 'defaults,acl,backup-volfile-servers=glusterfs-server02:glusterfs-server03'
