@@ -33,9 +33,9 @@
         fstype: 'xfs'
         state: 'mounted'
 
-    - name: 'Create directory /gluster/brick'
+    - name: 'Create directory /gluster/bricks/'
       ansible.builtin.file:
-        path: '/gluster/brick'
+        path: '/gluster/bricks/'
         state: 'directory'
         owner: 'root'
         group: 'root'
