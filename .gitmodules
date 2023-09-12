@@ -37,3 +37,6 @@
 [submodule "ansible/roles/johanneskastl.disable_ipv6"]
 	path = ansible/roles/johanneskastl.disable_ipv6
 	url = https://github.com/johanneskastl/ansible-role-disable_ipv6
+[submodule "ansible/roles/johanneskastl.glusterfs_clients"]
+	path = ansible/roles/johanneskastl.glusterfs_clients
+	url = https://github.com/johanneskastl/ansible-role-glusterfs_clients
